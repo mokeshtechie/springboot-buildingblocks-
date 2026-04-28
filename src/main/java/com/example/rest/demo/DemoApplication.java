@@ -2,12 +2,11 @@ package com.example.rest.demo;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 
 @SpringBootApplication
-//want to be commit yes //heelo world this is my time//
-//want to be commit yes    i want some changes//
+@EntityScan(basePackages = "com.example.rest.demo.entities")
 public class DemoApplication {
-
     public static void main(String[] args) {
         SpringApplication.run(DemoApplication.class, args);
     }

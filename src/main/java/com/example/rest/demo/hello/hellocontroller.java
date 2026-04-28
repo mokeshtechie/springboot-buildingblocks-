@@ -15,6 +15,8 @@ public class hellocontroller {
 	@GetMapping(value = "/hellobeam", produces = "application/json")
 	public UserDetails hellobeam(){
 	    return new UserDetails("ramesh","rama","epstien island");
+	    
+	    
 	}
 	
 
