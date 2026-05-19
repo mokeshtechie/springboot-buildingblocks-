@@ -21,6 +21,7 @@ import com.example.rest.demo.entities.User;
 import com.example.rest.demo.service.useService;
 
 import ExceptionHandling.ServiceException;
+import jakarta.validation.Valid;
 
 @RestController
 public class UserController {
@@ -34,7 +35,7 @@ public class UserController {
 		
 	}
 	 @PostMapping("/save")
-	 public User saveAll( @RequestBody User user){
+	 public User saveAll(@Valid @RequestBody User user){
 		 try {
 			return UserService.saveall(user);
 		 } catch (ServiceException e) {
