@@ -25,7 +25,11 @@ import com.example.rest.demo.entities.User;
 import com.example.rest.demo.service.useService;
 
 import ExceptionHandling.ServiceException;
+
 import ExceptionHandling.UserExistException;
+
+import jakarta.validation.Valid;
+
 
 @RestController
 public class UserController {
@@ -38,6 +42,7 @@ public class UserController {
 		return UserService.GetAllData();
 		
 	}
+
 	@PostMapping("/save")
 	public ResponseEntity<Void> saveUser(
 	        @RequestBody User user,
@@ -63,6 +68,7 @@ public class UserController {
 	                e.getMessage());
 	    }
 	}
+
      @GetMapping("/User/{id}")
      public Optional<User> findId(@PathVariable("id") Long id){
     	 try {
