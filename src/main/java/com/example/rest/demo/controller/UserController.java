@@ -1,13 +1,16 @@
 package com.example.rest.demo.controller;
 
 
+
 import java.util.List;
 import java.util.Optional;
 
 import org.hibernate.annotations.NotFound;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,11 +19,13 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import com.example.rest.demo.entities.User;
 import com.example.rest.demo.service.useService;
 
 import ExceptionHandling.ServiceException;
+import ExceptionHandling.UserExistException;
 
 @RestController
 public class UserController {
@@ -33,14 +38,31 @@ public class UserController {
 		return UserService.GetAllData();
 		
 	}
-	 @PostMapping("/save")
-	 public User saveAll( @RequestBody User user){
-		 try {
-			return UserService.saveall(user);
-		 } catch (ServiceException e) {
-		throw	new ResponseStatusException(HttpStatus.BAD_REQUEST,e.getMessage());
-		 }
-	 }
+	@PostMapping("/save")
+	public ResponseEntity<Void> saveUser(
+	        @RequestBody User user,
+	        UriComponentsBuilder builder) {
+
+	    try {
+
+	        User savedUser = UserService.saveall(user);
+
+	        HttpHeaders headers = new HttpHeaders();
+
+	        headers.setLocation(
+	                builder.path("/user/{id}")
+	                        .buildAndExpand(savedUser.getSno())
+	                        .toUri());
+
+	        return new ResponseEntity<>(headers, HttpStatus.CREATED);
+
+	    } catch (UserExistException e) {
+
+	        throw new ResponseStatusException(
+	                HttpStatus.BAD_REQUEST,
+	                e.getMessage());
+	    }
+	}
      @GetMapping("/User/{id}")
      public Optional<User> findId(@PathVariable("id") Long id){
     	 try {
