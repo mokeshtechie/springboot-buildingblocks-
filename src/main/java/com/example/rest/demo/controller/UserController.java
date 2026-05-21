@@ -25,11 +25,11 @@ import com.example.rest.demo.entities.User;
 import com.example.rest.demo.service.useService;
 
 import ExceptionHandling.ServiceException;
-<<<<<<< HEAD
+
 import ExceptionHandling.UserExistException;
-=======
+
 import jakarta.validation.Valid;
->>>>>>> refs/heads/05-validation-global-exception
+
 
 @RestController
 public class UserController {
@@ -42,7 +42,7 @@ public class UserController {
 		return UserService.GetAllData();
 		
 	}
-<<<<<<< HEAD
+
 	@PostMapping("/save")
 	public ResponseEntity<Void> saveUser(
 	        @RequestBody User user,
@@ -68,16 +68,7 @@ public class UserController {
 	                e.getMessage());
 	    }
 	}
-=======
-	 @PostMapping("/save")
-	 public User saveAll(@Valid @RequestBody User user){
-		 try {
-			return UserService.saveall(user);
-		 } catch (ServiceException e) {
-		throw	new ResponseStatusException(HttpStatus.BAD_REQUEST,e.getMessage());
-		 }
-	 }
->>>>>>> refs/heads/05-validation-global-exception
+
      @GetMapping("/User/{id}")
      public Optional<User> findId(@PathVariable("id") Long id){
     	 try {
