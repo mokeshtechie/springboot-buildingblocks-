@@ -6,6 +6,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Size;
 
 
 @Entity
@@ -70,15 +72,18 @@ public class User {
 	public void setSsn(String ssn) {
 		this.ssn = ssn;
 	}
+	@Column(name="ssn",nullable=false,unique=true)
+	private String ssn;
 	@Column(name="first_name",nullable=false,length=50)
+	@NotEmpty(message="the username is not shoukd be empty") 
 	private String firstName;
+	@Size(min=2 , message="we have to valid more letter in name")
 	@Column(name="last_name",nullable=false,length=50)
 	private String lastName;
 	@Column(name="email",length=50)
 	private String email;
 	@Column(name="role",nullable=false,length=5)
 	private String role;
-	@Column(name="ssn",nullable=false,unique=true)
-	private String ssn;
+	
 
 }
