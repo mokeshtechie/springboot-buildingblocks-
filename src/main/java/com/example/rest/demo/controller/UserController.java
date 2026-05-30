@@ -1,16 +1,15 @@
 package com.example.rest.demo.controller;
 
 
-
+import java.net.http.HttpHeaders;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.hibernate.annotations.NotFound;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
-import org.springframework.http.ResponseEntity;
+
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,11 +24,8 @@ import com.example.rest.demo.entities.User;
 import com.example.rest.demo.service.useService;
 
 import ExceptionHandling.ServiceException;
-
 import ExceptionHandling.UserExistException;
-
 import jakarta.validation.Valid;
-
 
 @RestController
 public class UserController {
@@ -42,27 +38,21 @@ public class UserController {
 		return UserService.GetAllData();
 		
 	}
-
 	@PostMapping("/save")
 	public ResponseEntity<Void> saveUser(
 	        @RequestBody User user,
 	        UriComponentsBuilder builder) {
 
 	    try {
-
 	        User savedUser = UserService.saveall(user);
 
-	        HttpHeaders headers = new HttpHeaders();
-
-	        headers.setLocation(
+	        return ResponseEntity.created(
 	                builder.path("/user/{id}")
-	                        .buildAndExpand(savedUser.getSno())
-	                        .toUri());
-
-	        return new ResponseEntity<>(headers, HttpStatus.CREATED);
+	                       .buildAndExpand(savedUser.getSno())
+	                       .toUri())
+	                .build();
 
 	    } catch (UserExistException e) {
-
 	        throw new ResponseStatusException(
 	                HttpStatus.BAD_REQUEST,
 	                e.getMessage());
