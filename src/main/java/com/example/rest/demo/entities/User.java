@@ -1,14 +1,18 @@
 package com.example.rest.demo.entities;
 
+import java.util.List;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
-
+import com.example.rest.demo.entities.Order;
 
 @Entity
 @Table(name="user_table")
@@ -84,6 +88,15 @@ public class User {
 	private String email;
 	@Column(name="role",nullable=false,length=5)
 	private String role;
+	@OneToMany(mappedBy = "user")
+	private List<Order> orders;
+
+	public List<Order> getOrders() {
+		return orders;
+	}
+	public void setOrders(List<Order> orders) {
+		this.orders = orders;
+	}
 	
 
 }

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -28,6 +29,7 @@ import ExceptionHandling.UserExistException;
 import jakarta.validation.Valid;
 
 @RestController
+@RequestMapping("/User")
 public class UserController {
 	
 	@Autowired
@@ -59,7 +61,7 @@ public class UserController {
 	    }
 	}
 
-     @GetMapping("/User/{id}")
+     @GetMapping("/{id}")
      public Optional<User> findId(@PathVariable("id") Long id){
     	 try {
 			return UserService.userid(id);
@@ -69,7 +71,7 @@ public class UserController {
 		 
 	
      }
-     @PutMapping("/User/{id}")
+     @PutMapping("/{id}")
      public User update(@PathVariable("id") Long id, @RequestBody User user) {
          try {
 			return UserService.updateId(id, user);
