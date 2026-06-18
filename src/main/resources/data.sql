@@ -15,7 +15,7 @@ INSERT INTO Orders (order_name, user_id)
 VALUES ('homeproduct', 3);
 
 INSERT INTO Orders (order_name, user_id)
-VALUES ('cooking product', 3);
+VALUES ('cooking product', 2);
 
 INSERT INTO Orders (order_name, user_id)
-VALUES ('dress product', 3);
+VALUES ('dress product', 2);

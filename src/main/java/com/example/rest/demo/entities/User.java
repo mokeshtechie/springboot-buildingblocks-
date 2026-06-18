@@ -13,6 +13,7 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 import com.example.rest.demo.entities.Order;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name="user_table")
@@ -89,6 +90,7 @@ public class User {
 	@Column(name="role",nullable=false,length=5)
 	private String role;
 	@OneToMany(mappedBy = "user")
+	@JsonIgnore
 	private List<Order> orders;
 
 	public List<Order> getOrders() {
